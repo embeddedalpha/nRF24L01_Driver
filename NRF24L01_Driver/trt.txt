@@ -1,0 +1,16 @@
+	master1.NRF24L01_SPI_Driver.Port = SPI1;
+	master1.NRF24L01_SPI_Driver.NSS_Port = GPIOA;
+	master1.NRF24L01_SPI_Driver.NSS_Pin = 1;
+	master1.NRF24L01_SPI_Driver.clock_phase = SPI_Clock_Phase.High_1;
+	master1.NRF24L01_SPI_Driver.clock_polarity = SPI_Clock_Polarity.High_1;
+	master1.NRF24L01_SPI_Driver.clock_pin = SPI1_CLK.PA5;
+	master1.NRF24L01_SPI_Driver.miso_pin = SPI1_MISO.PA6;
+	master1.NRF24L01_SPI_Driver.mosi_pin = SPI1_MOSI.PA7;
+	master1.NRF24L01_SPI_Driver.crc = SPI_CRC.Disable;
+	master1.NRF24L01_SPI_Driver.data_format = SPI_Data_Format.Bit8;
+	master1.NRF24L01_SPI_Driver.dma = SPI_DMA.RX_DMA_Disable | SPI_DMA.TX_DMA_Disable;
+	master1.NRF24L01_SPI_Driver.frame_format = SPI_Frame_Format.MSB_First;
+	master1.NRF24L01_SPI_Driver.interrupt = SPI_Interrupt.Disable;
+	master1.NRF24L01_SPI_Driver.mode = SPI_Mode.Full_Duplex_Master;
+	master1.NRF24L01_SPI_Driver.prescaler = SPI_Prescaler.CLK_div_16;
+	master1.NRF24L01_SPI_Driver.type = SPI_Type.Master;

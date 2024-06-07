@@ -1,0 +1,4 @@
+../Console/Console.c:15:7:Console_Init	1
+../Console/Console.c:29:7:printConsole	3
+../Console/Console.c:46:6:readConsole	2
+../Console/Console.c:55:5:readConsole_int	2
