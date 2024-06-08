@@ -29,25 +29,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  12 .ARM.attributes 00000030  00000000  00000000  00004004  2**0
                   CONTENTS, READONLY
- 13 .debug_info   000092e2  00000000  00000000  00004034  2**0
+ 13 .debug_info   00009338  00000000  00000000  00004034  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 00000efa  00000000  00000000  0000d316  2**0
+ 14 .debug_abbrev 00000f15  00000000  00000000  0000d36c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 00000270  00000000  00000000  0000e210  2**3
+ 15 .debug_aranges 00000278  00000000  00000000  0000e288  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 000001b7  00000000  00000000  0000e480  2**0
+ 16 .debug_rnglists 000001bd  00000000  00000000  0000e500  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  0001a635  00000000  00000000  0000e637  2**0
+ 17 .debug_macro  0001a635  00000000  00000000  0000e6bd  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00005dcc  00000000  00000000  00028c6c  2**0
+ 18 .debug_line   00005e1b  00000000  00000000  00028cf2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    0008f13c  00000000  00000000  0002ea38  2**0
+ 19 .debug_str    0008f144  00000000  00000000  0002eb0d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000043  00000000  00000000  000bdb74  2**0
+ 20 .comment      00000043  00000000  00000000  000bdc51  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00000ad4  00000000  00000000  000bdbb8  2**2
+ 21 .debug_frame  00000af0  00000000  00000000  000bdc94  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 0000004f  00000000  00000000  000be68c  2**0
+ 22 .debug_line_str 0000004f  00000000  00000000  000be784  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1615,7 +1615,7 @@ void GPIO_Pin_Init(GPIO_TypeDef *Port, uint8_t pin, uint8_t mode, uint8_t output
  8000ff2:	bd80      	pop	{r7, pc}
 
 08000ff4 <NRF24L01_Init>:
-static void write_register(uint8_t reg, uint8_t data);
+}
 
 
 
