@@ -32,6 +32,15 @@ static void write_register(uint8_t reg, uint8_t data)
 	SPI_NSS_High(&nrf24_spi);
 }
 
+static uint8_t cmd(uint8_t command)
+{
+	uint8_t temp = 0;
+	SPI_NSS_Low(&nrf24_spi);
+	temp = SPI_TRX_Byte(&nrf24_spi, command);
+	SPI_NSS_High(&nrf24_spi);
+	return temp;
+}
+
 
 
 int8_t NRF24L01_Init(NRF24L01_Config *config)
@@ -48,6 +57,9 @@ int8_t NRF24L01_Init(NRF24L01_Config *config)
 		GPIO_Pin_Init(config->Interrupt_Port, config->Interrupt_Pin, MODE.Input, Output_Type.Open_Drain, Speed.Very_High_Speed, Pull.No_Pull_Up_Down, Alternate_Functions.None);
 		GPIO_Interrupt_Setup(config->Interrupt_Pin, Interrupt_Edge.RISING_EDGE , 0);
 	}
+
+
+	write_register(NRF24L01_Registers.CONFIG.REGISTER, 0 << NRF24L01_Registers.CONFIG.PWR_UP);
 
 
 
