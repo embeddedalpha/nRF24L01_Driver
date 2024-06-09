@@ -21,10 +21,7 @@
 #include "NRF24L01.h"
 
 
-
 NRF24L01_Config master1;
-
-SPI_Config master_slave1;
 
 int main(void)
 {
@@ -32,16 +29,16 @@ int main(void)
 	Delay_Config();
 	Console_Init(USART1, 9600);
 
-	SPI_Config_Reset(&master_slave1);
+	NRF24L01_Reset(&master1);
 
-
-	master1.NRF24L01_SPI_Driver = master_slave1;
-
-	NRF24L01_Init(&master1);
-
+	master1.Address_Length = NRF24L01_Address_Length.Byte_5;
+	master1.RF_Power       = NRF24L01_Power.PWR_0dBm;
 
 
 	NRF24L01_Init(&master1);
+
+
+
 
 
 
