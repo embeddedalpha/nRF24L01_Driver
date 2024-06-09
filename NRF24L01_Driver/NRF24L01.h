@@ -39,10 +39,14 @@ typedef struct NRF24L01_Config
 
 
 int8_t NRF24L01_Init(NRF24L01_Config *config);
+
+int8_t NRF24L01_Reset(NRF24L01_Config *config);
+
 void NRF24L01_DeInit(NRF24L01_Config *config);
 
 void NRF24L01_Set_Slave_Address(NRF24L01_Config *config, uint8_t slave_no, uint8_t *slave_Address);
-void NRF24L01_Set_RX_Power(NRF24L01_Config *config, uint8_t rx_power);
+
+void NRF24L01_Set_RX_Power(NRF24L01_Config *config);
 
 void NRF24L01_Send_Data(NRF24L01_Config *config,uint8_t slave_no, uint8_t *data, uint8_t len);
 void NRF24L01_Broadcast_Data(NRF24L01_Config *config, uint8_t *data, uint8_t len);
