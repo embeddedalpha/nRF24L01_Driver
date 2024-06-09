@@ -157,20 +157,6 @@ static const struct NRF24L01_Reg
         uint8_t WIDTH;
     } RX_PW_P0, RX_PW_P1, RX_PW_P2, RX_PW_P3, RX_PW_P4, RX_PW_P5;
 
-    // FIFO Status Register
-    const struct {
-        uint8_t REGISTER;
-
-        struct {
-            uint8_t RX_EMPTY; // 1: RX FIFO empty
-            uint8_t RX_FULL;  // 1: RX FIFO full
-            uint8_t Reserved1;
-            uint8_t TX_EMPTY; // 1: TX FIFO empty
-            uint8_t TX_FULL;  // 1: TX FIFO full
-            uint8_t TX_REUSE; // 1: TX_REUSE flag
-        } FIFO_STATUS;
-
-    } FIFO_STATUS;
 
     // Status Register
     const struct {
@@ -188,11 +174,7 @@ static const struct NRF24L01_Reg
 
     } STATUS;
 
-    // Payload Width Register (Pipe 0 to 5)
-    const struct {
-        uint8_t REGISTER;
-        uint8_t WIDTH;
-    } RX_PW_P0, RX_PW_P1, RX_PW_P2, RX_PW_P3, RX_PW_P4, RX_PW_P5;
+
 
     // FIFO Status Register
     const struct {
@@ -205,7 +187,7 @@ static const struct NRF24L01_Reg
             uint8_t TX_EMPTY; // 1: TX FIFO empty
             uint8_t TX_FULL;  // 1: TX FIFO full
             uint8_t TX_REUSE; // 1: TX_REUSE flag
-        } FIFO_STATUS;
+        } FIFOSTATUS;
 
     } FIFO_STATUS;
 
@@ -286,7 +268,7 @@ static const struct NRF24L01_Reg
         .RX_PW_P5 = {.REGISTER = 0x16, .WIDTH = 0x00},
 
         .FIFO_STATUS = {.REGISTER = 0x17,
-                        .FIFO_STATUS = {.RX_EMPTY = 1 << 0, .RX_FULL = 1 << 1, .Reserved1 = 0 << 2,
+                        .FIFOSTATUS = {.RX_EMPTY = 1 << 0, .RX_FULL = 1 << 1, .Reserved1 = 0 << 2,
             		                    .TX_EMPTY = 1 << 4, .TX_FULL = 1 << 5, .TX_REUSE = 1 << 6},
             		    },
 
