@@ -212,6 +212,20 @@ static const struct NRF24L01_Reg
         uint8_t Reserved : 5;
     } FEATURE;
 
+
+    // Setup of Address Widths
+    const struct {
+        uint8_t REGISTER;
+
+        struct {
+            uint8_t Illegal; // 1: RX FIFO empty
+            uint8_t Byte_3;  // 1: RX FIFO full
+            uint8_t Byte_4;
+            uint8_t Byte_5; // 1: TX FIFO empty
+        } AW;
+
+    } SETUP_AW;
+
     } NRF24L01_Reg = {
         .CONFIG = {
             .REGISTER = 0x00,
@@ -300,6 +314,21 @@ static const struct NRF24L01_Reg
 			.EN_DYN_ACK = 0,
 			.Reserved = 0,
 		},
+
+        .SETUP_AW = {.REGISTER = 0x07,
+            	     .AW = {.Illegal = 0 << 0,
+            			     .Byte_3 = 1 << 1,
+							 .Byte_4 = 2 << 4,
+            		         .Byte_5 = 3 << 5,
+        					},
+            	   },
+
+				   /*
+				    *            uint8_t Illegal; // 1: RX FIFO empty
+            uint8_t Byte_3;  // 1: RX FIFO full
+            uint8_t Byte_4;
+            uint8_t Byte_5; // 1: TX FIFO empty
+				    */
   };
 
 

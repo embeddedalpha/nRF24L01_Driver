@@ -20,11 +20,11 @@
 #include "Console.h"
 #include "NRF24L01.h"
 
+
+
 NRF24L01_Config master1;
-NRF24L01_Config master2;
 
 SPI_Config master_slave1;
-SPI_Config master_slave2;
 
 int main(void)
 {
@@ -33,16 +33,22 @@ int main(void)
 	Console_Init(USART1, 9600);
 
 	SPI_Config_Reset(&master_slave1);
-	SPI_Config_Reset(&master_slave2);
 
 
 	master1.NRF24L01_SPI_Driver = master_slave1;
-	master2.NRF24L01_SPI_Driver = master_slave2;
+
+	NRF24L01_Init(&master1);
 
 
 
 	NRF24L01_Init(&master1);
-	NRF24L01_Init(&master2);
+
+
+
+
+
+
+
 
 
 

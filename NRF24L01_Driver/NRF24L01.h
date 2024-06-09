@@ -20,6 +20,8 @@ typedef struct NRF24L01_Config
 {
 	SPI_Config NRF24L01_SPI_Driver;
 
+	uint8_t Address_Length;
+
 	uint8_t Data_Rate;
 	uint8_t RF_Power;
 

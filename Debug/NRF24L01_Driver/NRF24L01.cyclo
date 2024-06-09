@@ -1,4 +1,5 @@
-../NRF24L01_Driver/NRF24L01.c:17:16:read_register	1
-../NRF24L01_Driver/NRF24L01.c:26:13:write_register	1
-../NRF24L01_Driver/NRF24L01.c:35:16:cmd	1
-../NRF24L01_Driver/NRF24L01.c:46:8:NRF24L01_Init	2
+../NRF24L01_Driver/NRF24L01.c:21:16:read_register	1
+../NRF24L01_Driver/NRF24L01.c:30:13:write_register	1
+../NRF24L01_Driver/NRF24L01.c:39:16:cmd	1
+../NRF24L01_Driver/NRF24L01.c:50:8:NRF24L01_Init	6
+../NRF24L01_Driver/NRF24L01.c:105:6:NRF24L01_Set_Slave_Address	3
