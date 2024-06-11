@@ -14,27 +14,40 @@
 #include "DMA.h"
 #include "NRF24L01_Defs.h"
 
+#define NRF24L01_DEBUG_LOG 0
+
+
+#ifdef NRF24L01_DEBUG_LOG
+	#include "Console.h"
+#endif
 
 
 typedef struct NRF24L01_Config
 {
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 	SPI_Config NRF24L01_SPI_Driver;
-
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
+	GPIO_TypeDef *Chip_Enable_Port;
+	uint8_t Chip_Enable_Pin;
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 	uint8_t Address_Length;
-
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 	uint8_t Data_Rate;
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 	uint8_t RF_Power;
-
-	uint8_t Interrupt_Enable;
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
+	uint8_t RF_Channel;
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
+	bool Interrupt_Enable;
 	uint8_t Interrupt_Type;
 	GPIO_TypeDef *Interrupt_Port;
 	uint8_t Interrupt_Pin;
-
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 	uint8_t CRC_type;
-
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 	uint8_t Auto_Retransmit_delay;
 	uint8_t Auto_Retransmit_Count;
-
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 }NRF24L01_Config;
 
 
@@ -44,15 +57,15 @@ int8_t NRF24L01_Reset(NRF24L01_Config *config);
 
 void NRF24L01_DeInit(NRF24L01_Config *config);
 
-void NRF24L01_Set_Slave_Address(NRF24L01_Config *config, uint8_t slave_no, uint8_t *slave_Address);
 
-void NRF24L01_Set_RX_Power(NRF24L01_Config *config);
 
 void NRF24L01_Send_Data(NRF24L01_Config *config,uint8_t slave_no, uint8_t *data, uint8_t len);
 void NRF24L01_Broadcast_Data(NRF24L01_Config *config, uint8_t *data, uint8_t len);
 void NRF24L01_Receive_Data(NRF24L01_Config *config,uint8_t slave_no, uint8_t *data, uint8_t len);
 
-
+void NRF24L01_Set_Slave_Address(NRF24L01_Config *config, uint8_t slave_no, uint8_t *slave_Address);
+void NRF24L01_Set_RX_Power(NRF24L01_Config *config);
+void NRF24L01_Set_RF_Channel(NRF24L01_Config *config);
 
 
 
