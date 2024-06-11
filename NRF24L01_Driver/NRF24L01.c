@@ -11,7 +11,6 @@
 
 uint8_t temp = 0;
 
-
 static const struct NRF24L01_Command
 {
     uint8_t R_REGISTER;
@@ -51,6 +50,10 @@ static const struct NRF24L01_Command
 
 static const struct NRF24L01_Reg
 {
+    const struct {
+        uint8_t REGISTER;
+    } RF_CH;
+
     // Configuration Register
     const struct {
         uint8_t REGISTER;
@@ -158,6 +161,9 @@ static const struct NRF24L01_Reg
             uint8_t POWER_NEG6DBM;  // 10: -6dBm
             uint8_t POWER_0DBM;     // 11: 0dBm
         } RF_PWR;
+
+        // Status Register
+
 
         struct {
             uint8_t CONT_WAVE_ON;  // 1: Continuous carrier transmit
@@ -294,6 +300,9 @@ static const struct NRF24L01_Reg
             .SETUP_RTR = {.ARC = 0x03}, // Default Automatic Retransmission Count (3)
         },
 
+
+
+
         .RF_SETUP = {
             .REGISTER = 0x06,
             .RF_DR_HIGH = {.RATE_1MBPS = 0 << 3, .RATE_2MBPS = 1 << 3, .RATE_250KBPS = 2 << 3, .Reserved = 3 << 3},
@@ -361,7 +370,12 @@ static const struct NRF24L01_Reg
             		         .Byte_5 = 3 << 5,
         					},
             	   },
+
+		.RF_CH = {
+				.REGISTER = 0x05,
+		},
   };
+
 
 
 
@@ -404,27 +418,19 @@ int8_t NRF24L01_Init(NRF24L01_Config *config)
 {
 
 
-	nrf24_spi = config->NRF24L01_SPI_Driver;
-
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 	SPI_Init(&config->NRF24L01_SPI_Driver);
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 	SPI_Enable(&config->NRF24L01_SPI_Driver);
-
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
+	GPIO_Pin_Init(config->Chip_Enable_Port, config->Chip_Enable_Pin, MODE.General_Purpose_Output, Output_Type.Push_Pull, Speed.Very_High_Speed, Pull.No_Pull_Up_Down, Alternate_Functions.None);
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 	if(config->Interrupt_Enable)
 	{
 		GPIO_Pin_Init(config->Interrupt_Port, config->Interrupt_Pin, MODE.Input, Output_Type.Open_Drain, Speed.Very_High_Speed, Pull.No_Pull_Up_Down, Alternate_Functions.None);
 		GPIO_Interrupt_Setup(config->Interrupt_Pin, Interrupt_Edge.RISING_EDGE , 0);
 	}
-
-
-
-	write_register(config,NRF24L01_Reg.CONFIG.REGISTER, NRF24L01_Reg.CONFIG.PWR_UP.POWER_DOWN);
-
-	NRF24L01_Set_RX_Power(config);
-
-	write_register(config,NRF24L01_Reg.RF_SETUP.REGISTER, NRF24L01_Reg.RF_SETUP.RF_DR_LOW.PLL_LOCK);
-
-	write_register(config,NRF24L01_Reg.SETUP_RETR.REGISTER, NRF24L01_Reg.SETUP_RETR.SETUP_RTR.ARC);
-
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 	switch (config->Address_Length) {
 		case 3:
 		{
@@ -444,10 +450,50 @@ int8_t NRF24L01_Init(NRF24L01_Config *config)
 			break;
 		default:
 		{
+#ifdef NRF24L01_DEBUG_LOG
+			printConsole("Unqualified Selection: %d \r\n",config->Address_Length);
+			printConsole("Address Length set to 5 bytes \r\n");
+#endif
 			write_register(config,NRF24L01_Reg.SETUP_AW.REGISTER, NRF24L01_Reg.SETUP_AW.AW.Byte_5);
 		}
 			break;
 	}
+	/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
+
+
+
+	write_register(config,NRF24L01_Reg.CONFIG.REGISTER, NRF24L01_Reg.CONFIG.PWR_UP.POWER_DOWN);
+
+	NRF24L01_Set_RF_Channel(config);
+	NRF24L01_Set_RX_Power(config);
+
+	write_register(config,NRF24L01_Reg.RF_SETUP.REGISTER, NRF24L01_Reg.RF_SETUP.RF_DR_LOW.PLL_LOCK);
+
+	write_register(config,NRF24L01_Reg.SETUP_RETR.REGISTER, NRF24L01_Reg.SETUP_RETR.SETUP_RTR.ARC);
+
+	switch (config->CRC_type)
+	{
+		case 1:
+		{
+			write_register(config,NRF24L01_Reg.CONFIG.REGISTER, NRF24L01_Reg.CONFIG.CRCO.ONE_BYTE);
+		}
+			break;
+		case 2:
+		{
+			write_register(config,NRF24L01_Reg.CONFIG.REGISTER, NRF24L01_Reg.CONFIG.CRCO.TWO_BYTES);
+		}
+		default:
+		{
+#ifdef NRF24L01_DEBUG_LOG
+			printConsole("Unqualified Selection: %d \r\n",config->CRC_type);
+			printConsole("CRC set to 1 byte \r\n");
+#endif
+			write_register(config,NRF24L01_Reg.CONFIG.REGISTER, NRF24L01_Reg.CONFIG.CRCO.ONE_BYTE);
+		}
+			break;
+	}
+
+
 
 
 	write_register(config,NRF24L01_Reg.FEATURE.REGISTER, NRF24L01_Reg.FEATURE.EN_DPL);
@@ -504,6 +550,10 @@ void NRF24L01_Set_RX_Power(NRF24L01_Config *config)
 	}
 	else
 	{
+#ifdef NRF24L01_DEBUG_LOG
+			printConsole("Unqualified Selection: %d \r\n",config->RF_Power);
+			printConsole("RF Power set to 0 dBm \r\n");
+#endif
 		write_register(config, NRF24L01_Reg.RF_SETUP.REGISTER, temp |NRF24L01_Reg.RF_SETUP.RF_PWR.POWER_0DBM);
 	}
 }
@@ -514,6 +564,28 @@ void NRF24L01_Receive_Data(NRF24L01_Config *config,uint8_t slave_no, uint8_t *da
 
 
 
+void NRF24L01_Set_Data_Rate(NRF24L01_Config *config)
+{
+	if(config->Data_Rate == NRF24L01_Data_Rate._250KBPS)
+	{
+		uint8_t temp = read_register(config, NRF24L01_Reg.RF_SETUP.REGISTER);
+		write_register(config, NRF24L01_Reg.RF_SETUP.REGISTER, temp | config->Data_Rate);
+	}
 
+
+
+#ifdef NRF24L01_DEBUG_LOG
+			printConsole("Data Rate: %d \r\n",config->Data_Rate);
+#endif
+
+}
+
+void NRF24L01_Set_RF_Channel(NRF24L01_Config *config)
+{
+#ifdef NRF24L01_DEBUG_LOG
+			printConsole("RF Channel Selected: %d \r\n",config->RF_Channel);
+#endif
+			write_register(config, NRF24L01_Reg.RF_CH.REGISTER, (config->RF_Channel-2400));
+}
 
 
