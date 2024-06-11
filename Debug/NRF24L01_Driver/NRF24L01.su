@@ -1,7 +1,9 @@
-../NRF24L01_Driver/NRF24L01.c:374:16:read_register	16	static
-../NRF24L01_Driver/NRF24L01.c:383:13:write_register	16	static
-../NRF24L01_Driver/NRF24L01.c:392:16:cmd	16	static
-../NRF24L01_Driver/NRF24L01.c:403:8:NRF24L01_Init	48	static
-../NRF24L01_Driver/NRF24L01.c:464:8:NRF24L01_Reset	16	static
-../NRF24L01_Driver/NRF24L01.c:470:6:NRF24L01_Set_Slave_Address	32	static
-../NRF24L01_Driver/NRF24L01.c:483:6:NRF24L01_Set_RX_Power	24	static
+../NRF24L01_Driver/NRF24L01.c:388:16:read_register	16	static
+../NRF24L01_Driver/NRF24L01.c:397:13:write_register	16	static
+../NRF24L01_Driver/NRF24L01.c:406:16:cmd	16	static
+../NRF24L01_Driver/NRF24L01.c:417:8:NRF24L01_Init	48	static
+../NRF24L01_Driver/NRF24L01.c:510:8:NRF24L01_Reset	16	static
+../NRF24L01_Driver/NRF24L01.c:516:6:NRF24L01_Set_Slave_Address	32	static
+../NRF24L01_Driver/NRF24L01.c:529:6:NRF24L01_Set_RX_Power	24	static
+../NRF24L01_Driver/NRF24L01.c:567:6:NRF24L01_Set_Data_Rate	24	static
+../NRF24L01_Driver/NRF24L01.c:583:6:NRF24L01_Set_RF_Channel	16	static

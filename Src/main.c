@@ -21,6 +21,7 @@
 #include "NRF24L01.h"
 
 
+
 NRF24L01_Config master1;
 
 int main(void)
@@ -31,11 +32,14 @@ int main(void)
 
 	NRF24L01_Reset(&master1);
 
+	master1.Interrupt_Enable = false;
 	master1.Address_Length = NRF24L01_Address_Length.Byte_5;
+	master1.CRC_type = NRF24L01_CRC.ONE_BYTE;
 	master1.RF_Power       = NRF24L01_Power.PWR_0dBm;
-
-
+	master1.Data_Rate = NRF24L01_Data_Rate._2MBPS;
+	master1.RF_Channel = NRF24L01_RF_Channel.Speed_2Mbps.CH_MHz_2404;
 	NRF24L01_Init(&master1);
+
 
 
 

@@ -9,7 +9,8 @@ NRF24L01_Driver/NRF24L01.o: ../NRF24L01_Driver/NRF24L01.c \
  D:/STM32F407_Firmware/NRF24L01_Driver/DMA/DMA_Defs_Stream.h \
  D:/STM32F407_Firmware/NRF24L01_Driver/DMA/DMA_Defs_Config.h \
  D:/STM32F407_Firmware/NRF24L01_Driver/SPI/SPI_Defs.h \
- ../NRF24L01_Driver/NRF24L01_Defs.h
+ ../NRF24L01_Driver/NRF24L01_Defs.h \
+ D:/STM32F407_Firmware/NRF24L01_Driver/Console/Console.h
 ../NRF24L01_Driver/NRF24L01.h:
 ../Inc/main.h:
 ../Inc/stm32f407xx.h:
@@ -28,3 +29,4 @@ D:/STM32F407_Firmware/NRF24L01_Driver/DMA/DMA_Defs_Stream.h:
 D:/STM32F407_Firmware/NRF24L01_Driver/DMA/DMA_Defs_Config.h:
 D:/STM32F407_Firmware/NRF24L01_Driver/SPI/SPI_Defs.h:
 ../NRF24L01_Driver/NRF24L01_Defs.h:
+D:/STM32F407_Firmware/NRF24L01_Driver/Console/Console.h:
